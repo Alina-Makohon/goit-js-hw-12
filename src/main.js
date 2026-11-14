@@ -13,9 +13,10 @@ import {
 
 let pageNumber = 1;
 let clearInput = '';
+
 const form = document.querySelector('.form');
 const inputText = document.querySelector('input');
-export const btnLoadMore = document.querySelector('.btn-load-more');
+const btnLoadMore = document.querySelector('.btn-load-more');
 
 form.addEventListener('submit', event => {
   event.preventDefault();
@@ -55,10 +56,12 @@ const changeGallaryBySeah = async () => {
     createGallery(data.hits);
     const item = document.querySelector('.gallery-item');
     const itemHeight = item.getBoundingClientRect().height;
-    scrollBy({
-      top: itemHeight * 2,
-      behavior: 'smooth',
-    });
+    if (pageNumber > 1) {
+      scrollBy({
+        top: itemHeight * 2,
+        behavior: 'smooth',
+      });
+    }
     const totalPages = Math.ceil(data.totalHits / 15);
     if (pageNumber < totalPages) {
       showLoadMoreButton();
